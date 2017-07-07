@@ -78,7 +78,7 @@ public class XDocRootFrame extends UtilFrame
         JButton settings = new JButton();
         settings.add(new SettingsButton());
         settings.addActionListener(evt -> displaySettingsDialog(this.config));
-        addToRibbon(settings, 0);
+        addToHeaderBar(settings, 0);
         
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation(screen.width/2 - getWidth()/2, screen.height/2 - getHeight()/2);
