@@ -24,6 +24,9 @@ public class ConfigWriter
             configWriter.println("# BOOKMARKS");
             config.bookmarks.forEach(configWriter::println);
             
+            configWriter.print("# LAF ");
+            configWriter.println(config.laf);
+            
             configWriter.flush();
         }
     }

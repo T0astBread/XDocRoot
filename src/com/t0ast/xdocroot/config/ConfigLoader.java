@@ -54,11 +54,20 @@ public class ConfigLoader
     {
         if(line.startsWith("# APACHE-CONF"))
         {
-            config.configFilePath = line.split(" ")[2];
+            config.configFilePath = extractOnelineValue(line);
         }
         else if(line.startsWith("# BOOKMARKS"))
         {
             readBookmarks(configReader, config);
         }
+        else if(line.startsWith("# LAF"))
+        {
+            config.laf = extractOnelineValue(line);
+        }
+    }
+    
+    private String extractOnelineValue(String line)
+    {
+        return line.split(" ")[2];
     }
 }

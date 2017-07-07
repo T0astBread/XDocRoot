@@ -16,6 +16,8 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,6 +25,9 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.LookAndFeel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -58,9 +63,17 @@ public class XDocRootFrame extends UtilFrame
     private void initUI(Config config)
     {
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        setTitle("XDocRoot");
         setHeaderTitle("XDocRoot");
         setHeaderInsets(6, 6, 0, 6);
+        
+        try
+        {
+            getLafToggler().scrollLafs(laf -> this.config.laf.equals(laf.getName()));
+        }
+        catch(UnsupportedLookAndFeelException ex)
+        {
+            System.out.println(ex);
+        }
         
         try
         {
@@ -84,6 +97,7 @@ public class XDocRootFrame extends UtilFrame
         setLocation(screen.width/2 - getWidth()/2, screen.height/2 - getHeight()/2);
         
         getRootPane().setDefaultButton(content.getBtnSet());
+        
         addWindowListener(new WindowAdapter()
         {
             @Override
@@ -94,6 +108,8 @@ public class XDocRootFrame extends UtilFrame
                 dispose();
             }
         });
+        
+        getLafToggler().addListener(evt -> config.laf = UIManager.getLookAndFeel().getName());
     }
     
     private void displaySettingsDialog(Config config)
