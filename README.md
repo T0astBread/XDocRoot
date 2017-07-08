@@ -12,6 +12,9 @@ You might want to change the path of the apache config file (for example if you 
 2. Click "Select" right next to the text field for the configuration file
 3. Select the httpd.conf file of your XAMPP installation
 
+## Other Useful Tricks
+You can press Cntrl+Shift+L to switch to a light theme. Press it again and you're back on the dark theme.
+
 ## Running the Project in your IDE
 To set the project up in your IDE, perform the following steps:
 1. Download the sources
