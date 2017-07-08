@@ -3,7 +3,6 @@
  */
 package com.t0ast.xdocroot.ui;
 
-import com.alee.laf.WebLookAndFeel;
 import static com.t0ast.mu.Mu.µ;
 import com.t0ast.swingutils.DialogUtils;
 import com.t0ast.swingutils.ui.ExceptionHandlerUtils;
@@ -25,7 +24,6 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
