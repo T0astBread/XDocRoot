@@ -9,8 +9,11 @@ package com.t0ast.xdocroot.ui;
  */
 public class Main
 {
+    public static String[] commandLineArgs;
+    
     public static void main(String[] args)
     {
+        commandLineArgs = args;
         XDocRootFrame frame = new XDocRootFrame();
         frame.setVisible(true);
     }

@@ -3,14 +3,17 @@
  */
 package com.t0ast.xdocroot.ui;
 
+import com.t0ast.swingutils.DialogUtils;
 import com.t0ast.swingutils.ui.LinkLabelAddon;
+import com.t0ast.swingutils.ui.licensing.mit.MitLicenseInformationDialog;
 import com.t0ast.xdocroot.config.Config;
+import java.awt.Dialog;
 import java.io.File;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -54,7 +57,16 @@ public class SettingsPanel extends javax.swing.JPanel
             btnCancel.getActionListeners()[0].actionPerformed(null);
         });
         this.btnCancel.addActionListener(evt -> SwingUtilities.getWindowAncestor(this).dispose());
-        LinkLabelAddon.applyWeblinkTo(this.lblSocialMediaLink, "https://twitter.com/t0astbread");
+        LinkLabelAddon.applyTo(this.lblLicenseInfo, this::showLicenseInfoDialog);
+    }
+    
+    private void showLicenseInfoDialog()
+    {
+        JDialog licenseDialog = new MitLicenseInformationDialog(SwingUtilities.getWindowAncestor(this));
+        licenseDialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+        licenseDialog.pack();
+        licenseDialog.setLocationRelativeTo(this);
+        licenseDialog.setVisible(true);
     }
 
     public JButton getBtnSave()
@@ -86,7 +98,7 @@ public class SettingsPanel extends javax.swing.JPanel
         txtConfigFilePath = new javax.swing.JTextField();
         btnCancel = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
-        lblSocialMediaLink = new javax.swing.JLabel();
+        lblLicenseInfo = new javax.swing.JLabel();
 
         lblHeader.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
         lblHeader.setText("Settings");
@@ -125,8 +137,8 @@ public class SettingsPanel extends javax.swing.JPanel
 
         btnSave.setText("Save");
 
-        lblSocialMediaLink.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        lblSocialMediaLink.setText("Follow me on Twitter");
+        lblLicenseInfo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lblLicenseInfo.setText("License Information");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -140,8 +152,8 @@ public class SettingsPanel extends javax.swing.JPanel
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblSocialMediaLink)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
+                        .addComponent(lblLicenseInfo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
                         .addComponent(btnSave)
                         .addGap(0, 0, 0)
                         .addComponent(btnCancel)))
@@ -159,7 +171,7 @@ public class SettingsPanel extends javax.swing.JPanel
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnCancel)
                         .addComponent(btnSave))
-                    .addComponent(lblSocialMediaLink, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(lblLicenseInfo, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(12, 12, 12))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -172,7 +184,7 @@ public class SettingsPanel extends javax.swing.JPanel
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblHeader;
-    private javax.swing.JLabel lblSocialMediaLink;
+    private javax.swing.JLabel lblLicenseInfo;
     private javax.swing.JTextField txtConfigFilePath;
     // End of variables declaration//GEN-END:variables
 }

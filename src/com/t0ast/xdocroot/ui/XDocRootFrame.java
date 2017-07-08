@@ -3,27 +3,29 @@
  */
 package com.t0ast.xdocroot.ui;
 
+import com.alee.laf.WebLookAndFeel;
 import static com.t0ast.mu.Mu.µ;
+import com.t0ast.swingutils.DialogUtils;
 import com.t0ast.swingutils.ui.ExceptionHandlerUtils;
 import com.t0ast.utilsstandards.UtilFrame;
 import com.t0ast.xdocroot.RootChanger;
 import com.t0ast.xdocroot.config.Config;
 import com.t0ast.xdocroot.config.ConfigLoader;
 import com.t0ast.xdocroot.config.ConfigWriter;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.LookAndFeel;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -88,7 +90,7 @@ public class XDocRootFrame extends UtilFrame
         
         JButton settings = new JButton();
         settings.add(new SettingsButton());
-        settings.addActionListener(evt -> displaySettingsDialog(this.config));
+        settings.addActionListener(evt -> showSettingsDialog(this.config));
         addToHeaderBar(settings, 0);
         
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -102,7 +104,8 @@ public class XDocRootFrame extends UtilFrame
             public void windowClosing(WindowEvent e)
             {
                 if(!content.askForEnd()) return;
-                µ(() -> new ConfigWriter().writeConfig(config, getConfigFilePath()), ex -> ExceptionHandlerUtils.showError(XDocRootFrame.this, ex));
+                if(!Arrays.stream(Main.commandLineArgs).anyMatch(arg -> arg.contains("noconf")))
+                    µ(() -> new ConfigWriter().writeConfig(config, getConfigFilePath()), ex -> ExceptionHandlerUtils.showError(XDocRootFrame.this, ex));
                 dispose();
             }
         });
@@ -110,12 +113,12 @@ public class XDocRootFrame extends UtilFrame
         getLafToggler().addListener(evt -> config.laf = UIManager.getLookAndFeel().getName());
     }
     
-    private void displaySettingsDialog(Config config)
+    private void showSettingsDialog(Config config)
     {
         JDialog dialog = new JDialog(this, "Settings");
+        dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
         SettingsPanel content = new SettingsPanel().setConfig(config);
-        dialog.setContentPane(content);
-        dialog.setPreferredSize(new Dimension(content.getPreferredSize().width, (int) (content.getPreferredSize().height * 1.2f)));
+        DialogUtils.setContent(dialog, content);
         dialog.getRootPane().setDefaultButton(content.getBtnSave());
         dialog.addWindowListener(new WindowAdapter()
         {
@@ -125,8 +128,8 @@ public class XDocRootFrame extends UtilFrame
                 rootChanger.setConfigFilePath(config.configFilePath);
             }
         });
-        dialog.setLocation((getX() + getWidth())/2 - dialog.getWidth()/2, (int) ((getY() + getHeight())*.4f - dialog.getHeight()/2));
         dialog.pack();
+        dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
     }
 }

@@ -1,6 +1,7 @@
 /* 
  * For license information please see LICENSE.txt
- */package com.t0ast.xdocroot;
+ */
+package com.t0ast.xdocroot;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
