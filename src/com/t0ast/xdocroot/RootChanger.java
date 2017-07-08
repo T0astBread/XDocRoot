@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.t0ast.xdocroot;
+/* 
+ * For license information please see LICENSE.txt
+ */package com.t0ast.xdocroot;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -26,7 +23,6 @@ public class RootChanger
     }
 
     /**
-     * <a href="http://t0astbread.github.io">kill me</a>
      * @param configFilePath The path of the Apache config file (<code>httpd.conf</code>)
      */
     public void setConfigFilePath(String configFilePath)

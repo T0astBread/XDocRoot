@@ -1,0 +1,7 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}For license information please see LICENSE.txt
+<#if licenseLast??>
+${licenseLast}
+</#if>
